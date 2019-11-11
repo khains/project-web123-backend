@@ -6,7 +6,7 @@ const apiRouter = require('./routers/api');
 
 const app = express();
 
-app.use(cors({ origin: ['http://localhost:3000'] , credentials : true }));
+app.use(cors({ origin: ['http://localhost:3000', 'https://kshopmen.herokuapp.com'] , credentials : true }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
