@@ -27,7 +27,19 @@ MerchandiseRouter.post('/', (req , res)=>{
 // get list 
 MerchandiseRouter.get('/' , (req , res)=>{
     const {  size , types , minPrice, maxPrice } = req.query;
-    const { page=1 , pageSize=16 } = req.query;
+    
+    // if(isNaN(page) || isNaN(pageSize)){
+    //     page = 1;
+    //     pageSize = 12;
+    // }
+    // if(page < 1 || pageSize < 1 || pageSize > 20){
+    //     res.status(500).json({
+    //         success : false,
+    //         message : "page & paSize is invaid"
+    //     });
+    // }
+
+    
     
     const query =  {};
 
@@ -43,6 +55,13 @@ MerchandiseRouter.get('/' , (req , res)=>{
             { price : { $lte: maxPrice } },
         ]
     }
+
+    const page = Number(req.query.page);
+    const pageSize = Number(req.query.pageSize);
+
+    // console.log(page);
+    // console.log(pageSize);
+
     merchandiseModel.find(query,{
         _v:0
     }).sort({ price: -1 })
@@ -127,6 +146,7 @@ MerchandiseRouter.delete('/:merchandiseId' , (req , res)=>{
         })
     })
 })
+
 
 
 module.exports = MerchandiseRouter;
